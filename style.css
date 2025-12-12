@@ -1,285 +1,318 @@
-:root {
-    --bg: #020617;
-    --card: #0f172a;
-    --accent: #22c55e;
-    --accent-soft: rgba(34, 197, 94, 0.15);
-    --text-main: #e5e7eb;
-    --text-soft: #9ca3af;
+:root{
+  /* Premium palette (blue → teal) */
+  --p1:#4f6cff;
+  --p2:#1fb6ff;
+  --p3:#00d3a7;
+
+  --bg1:#eef2ff;
+  --bg2:#f8fafc;
+
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+
+  --radius:18px;
+  --shadow:0 16px 40px rgba(2,8,23,.14);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family:"Hind Siliguri","Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1100px 420px at top, rgba(79,108,255,.16), transparent 55%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 
-body {
-    font-family: "Hind Siliguri", sans-serif;
-    background: radial-gradient(circle at top, #0f172a, #020617);
-    color: var(--text-main);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* ================= HEADER (thinner) ================= */
+.header{
+  width:min(1100px,94%);
+  margin:10px auto 0;
 }
 
-/* Header */
-header {
-    padding: 0.8rem 1.5rem;
-    background: linear-gradient(90deg, #020617, #0f172a);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.logo-title{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+
+  padding:8px 12px;              /* thinner header */
+  border-radius:18px;
+
+  color:#fff;
+  background:
+    radial-gradient(900px 260px at 30% 10%, rgba(255,255,255,.18), transparent 55%),
+    linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-.logo-title {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
+.logo-title::after{
+  content:"";
+  position:absolute;
+  right:-90px;
+  top:-120px;
+  width:240px;
+  height:240px;
+  background:radial-gradient(circle, rgba(255,255,255,.18), transparent 65%);
+  transform:rotate(10deg);
+  pointer-events:none;
 }
 
-.logo-circle {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    background: radial-gradient(circle at 30% 15%, #4ade80, #15803d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    color: #022c22;
+.logo-circle{
+  width:30px;
+  height:30px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:900;
+  font-family:"Poppins",sans-serif;
+  font-size:13px;
+
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.22);
 }
 
-.site-title {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.25rem;
-    font-weight: 600;
+.logo-text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 }
 
-.site-tagline {
-    font-size: 0.8rem;
-    color: var(--text-soft);
+.site-title{
+  font-family:"Poppins",sans-serif;
+  font-weight:900;
+  font-size:18px;               /* smaller */
+  line-height:1.05;
+  letter-spacing:.2px;
 }
 
-.model-pill {
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.25rem 0.55rem;
-    border-radius: 999px;
-    background: rgba(34, 197, 94, 0.12);
-    font-size: 0.75rem;
-    color: #bbf7d0;
+.site-tagline{
+  margin-top:2px;
+  font-size:11.5px;             /* smaller */
+  opacity:.95;
 }
 
-.model-pill-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 999px;
-    background: #22c55e;
+/* ================= MAIN (serial / one column) ================= */
+.main-wrapper{
+  width:min(1100px,94%);
+  margin:16px auto 0;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
 
-/* Layout */
-.main-wrapper {
-    flex: 1;
-    display: flex;
-    gap: 1rem;
-    padding: 1rem 1.2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+/* ================= CARDS ================= */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+/* ================= PROFILE CARD ================= */
+.profile-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-.card {
-    background: var(--card);
-    border-radius: 1rem;
-    padding: 1rem;
-    border: 1px solid rgba(148, 163, 184, 0.3);
+.profile-header img{
+  width:54px;       /* smaller profile circle */
+  height:54px;
+  border-radius:999px;
+  object-fit:cover;
+
+  border:3px solid transparent;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg,var(--p1),var(--p2),var(--p3)) border-box;
+
+  box-shadow:0 10px 22px rgba(2,8,23,.14);
 }
 
-.profile-header {
-    display: flex;
-    gap: 0.75rem;
+.profile-name{
+  font-family:"Poppins",sans-serif;
+  font-weight:900;
+  font-size:18px;
 }
 
-.avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 999px;
-    background: radial-gradient(circle at 30% 10%, #38bdf8, #0369a1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
+.profile-role{
+  margin-top:2px;
+  font-size:13px;
+  color:var(--muted);
 }
 
-.profile-name {
-    font-size: 1rem;
-    font-weight: 600;
+.profile-bio{
+  margin:12px 0 0;
+  font-size:14px;
+  line-height:1.7;
+  color:var(--text);
 }
 
-.profile-role {
-    font-size: 0.8rem;
-    color: var(--text-soft);
+/* Contact button - slightly smaller + premium */
+.contact-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-top:14px;
+  padding:10px 14px;
+  border-radius:14px;
+
+  text-decoration:none;
+  font-weight:900;
+  font-size:14px;
+  color:#fff;
+
+  background:
+    radial-gradient(140px 40px at 25% 10%, rgba(255,255,255,.22), transparent 60%),
+    linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
+  box-shadow:0 14px 30px rgba(2,8,23,.18);
 }
 
-.profile-bio {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-soft);
+.contact-btn:hover{ opacity:.94; }
+.contact-btn:active{ transform:scale(.98); }
+
+/* ================= CHAT CARD ================= */
+.chat-header{ margin-bottom:12px; }
+
+.chat-title{
+  font-family:"Poppins",sans-serif;
+  font-weight:900;
+  font-size:18px;
 }
 
-/* Features */
-.mini-section-title {
-    font-size: 0.85rem;
-    color: #a5b4fc;
-    margin-bottom: 0.3rem;
+.chat-sub{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
 }
 
-.feature-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+/* chat box */
+.chat-box{
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:18px;
+  padding:16px;
+  min-height:260px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.88);
 }
 
-.feature-list li {
-    font-size: 0.82rem;
-    display: flex;
-    gap: 0.3rem;
+/* message rows */
+.msg-row{
+  width:100%;
+  display:flex;
+  margin:10px 0;
 }
 
-.icon {
-    font-size: 0.9rem;
-    color: var(--accent);
+.msg-row.assistant{ justify-content:flex-start; }
+.msg-row.user{ justify-content:flex-end; }
+
+/* bubbles */
+.msg-bubble{
+  max-width:86%;
+  padding:13px 14px;
+  border-radius:16px;
+  box-shadow:0 10px 22px rgba(2,8,23,.08);
 }
 
-/* Chat Section */
-.chat-wrapper {
-    flex: 1;
+.msg-row.assistant .msg-bubble{
+  background:
+    radial-gradient(260px 70px at 20% 10%, rgba(79,108,255,.14), transparent 60%),
+    linear-gradient(135deg,#eef2ff,#ffffff);
 }
 
-.chat-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.msg-row.user .msg-bubble{
+  background:
+    radial-gradient(260px 70px at 80% 10%, rgba(0,211,167,.14), transparent 60%),
+    linear-gradient(135deg,#e9fff9,#ffffff);
 }
 
-.chat-header {
-    margin-bottom: 0.5rem;
+/* meta label */
+.msg-meta{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+  margin-bottom:6px;
 }
 
-.chat-title {
-    font-size: 1.1rem;
-    font-weight: 600;
+/* ================= INPUT ================= */
+.chat-input-area{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 54px 1fr auto;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  background:#fff;
 }
 
-.chat-sub {
-    font-size: 0.8rem;
-    color: var(--text-soft);
+.chat-input-area::before{
+  content:"+";
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  color:var(--p1);
+  background:#f1f5ff;
+  border-right:1px solid rgba(15,23,42,.06);
 }
 
-.chat-box {
-    flex: 1;
-    overflow-y: auto;
-    padding: 0.75rem;
-    background: #020617;
-    border-radius: 0.8rem;
-    border: 1px solid rgba(75, 85, 99, 0.7);
+#userInput{
+  border:0;
+  outline:none;
+  padding:13px 14px;
+  font-size:14.5px;
+  resize:none;
+  background:#fff;
+  font-family:"Poppins","Hind Siliguri",system-ui;
 }
 
-.msg-row {
-    margin-bottom: 0.5rem;
-    display: flex;
+.send-btn{
+  border:0;
+  background:linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
+  color:#fff;
+  padding:0 16px;
+  font-size:14px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.send-btn:hover{ opacity:.94; }
+.send-icon{ font-size:18px; }
+
+/* status */
+.status-text{
+  margin-top:10px;
+  font-size:13px;
+  color:#b91c1c;
 }
 
-.msg-row.user {
-    justify-content: flex-end;
+/* footer */
+.footer{
+  width:min(1100px,94%);
+  margin:16px auto 28px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12.5px;
 }
 
-.msg-bubble {
-    max-width: 75%;
-    padding: 0.5rem 0.7rem;
-    border-radius: 0.7rem;
-    font-size: 0.85rem;
-    line-height: 1.4;
+/* ================= MOBILE tweaks ================= */
+@media (max-width:480px){
+  .logo-title{ padding:7px 10px; border-radius:16px; }
+  .site-title{ font-size:17px; }
+  .site-tagline{ font-size:11px; }
+  .card{ padding:16px; }
+  .profile-header img{ width:50px; height:50px; }
+  .contact-btn{ padding:10px 12px; font-size:13.5px; }
 }
-
-.msg-row.user .msg-bubble {
-    background: linear-gradient(135deg, #0ea5e9, #0369a1);
-    color: white;
-    border-bottom-right-radius: 0.1rem;
-}
-
-.msg-row.assistant .msg-bubble {
-    background: #0f172a;
-    border: 1px solid rgba(75, 85, 99, 0.8);
-    border-bottom-left-radius: 0.1rem;
-}
-
-.msg-meta {
-    font-size: 0.7rem;
-    color: var(--text-soft);
-    margin-bottom: 0.2rem;
-}
-
-/* Input */
-.chat-input-area {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.7rem;
-}
-
-textarea {
-    flex: 1;
-    resize: none;
-    padding: 0.6rem;
-    font-size: 0.9rem;
-    background: #020617;
-    border-radius: 0.7rem;
-    border: 1px solid rgba(75, 85, 99, 0.8);
-    color: var(--text-main);
-}
-
-.send-btn {
-    padding: 0.6rem 1rem;
-    background: linear-gradient(135deg, #22c55e, #15803d);
-    border: none;
-    border-radius: 0.7rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.send-icon {
-    font-size: 1rem;
-}
-
-.status-text {
-    font-size: 0.75rem;
-    margin-top: 0.2rem;
-    color: var(--text-soft);
-}
-
-footer {
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.8rem;
-    padding: 0.7rem 0;
-}
-.profile-header img {
-  width: 90px;          /* চাইলে 80/100 করতে পারেন */
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-
-
