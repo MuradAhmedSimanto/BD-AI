@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ai quick help</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-title">
+            <div class="logo-circle">Q</div>
+            <div>
+                <div class="site-title">Ai quick help</div>
+                <div class="site-tagline">Ask anything. Get instant help.</div>
+            </div>
+        </div>
+        <div class="model-pill">
+            <span class="model-pill-dot"></span>
+            <span>AI Assistant • বাংলা & English</span>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="main-wrapper">
+
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <section class="card">
+                <div class="profile-header">
+                    <img src="https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE-2rhMFAiSgDs19BGOvoLhiXdOx74Kdq2Jd07Hvgp2rXdd_IfXff59dB3-B42b03NlObUV07Z1ZHgnO4q2VqDB&_nc_ohc=iFjpX4hY_RUQ7kNvwGPlMVQ&_nc_oc=AdmplQsInHOYbwiTrrvm0WgPXX_C_7diLYBikq3sGiORo2WsUKu3-_2UDjTZteCN-Ba8pywMmD7xD2MZMjnYo41a&_nc_zt=24&_nc_ht=scontent.fdac2-2.fna&_nc_gid=m_x0HIIyGphM6_ffjvvbbw&oh=00_AfmCIKn810tz32g8CMgHb23oqzaXWMvhwldiRLm7NmR6eQ&oe=69420933" alt="My Photo">
+                    <div>
+                        <div class="profile-name">Murad Ahmmed</div>
+                        <div class="profile-role">Founder · Ai quick help</div>
+                    </div>
+                </div>
+                <p class="profile-bio">
+                    আমি চেষ্টা করি সহজ ভাষায় মানুষকে সাহায্য করতে – পড়াশোনা, টেকনোলজি, দৈনন্দিন সমস্যা,
+                    যাই হোক না কেন।
+                </p>
+            </section>
+
+            <section class="card">
+                <div class="mini-section-title">What you can ask</div>
+                <ul class="feature-list">
+                    <li><span class="icon">✔</span><span>বাংলা বা English – যে ভাষায় আরাম লাগে সে ভাষায় প্রশ্ন করুন।</span></li>
+                    <li><span class="icon">✔</span><span>স্টাডি হেল্প, লেখা ঠিক করা, অনুবাদ, আইডিয়া – সব।</span></li>
+                    <li><span class="icon">✔</span><span>ছোট ছোট প্রশ্নও করতে পারবেন – নো জাজমেন্ট জোন।</span></li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Right Chat Section -->
+        <section class="chat-wrapper">
+            <section class="card chat-card">
+                <div class="chat-header">
+                    <div>
+                        <div class="chat-title">Ask your question</div>
+                        <div class="chat-sub">Type & press Send. Answer will come below.</div>
+                    </div>
+                </div>
+
+                <div id="chatBox" class="chat-box">
+                    <div class="msg-row assistant">
+                        <div class="msg-bubble">
+                            <div class="msg-meta">AI Assistant</div>
+                            <div>
+                                স্বাগতম! আমি আপনার Ai quick help সহকারী। বাংলা বা ইংরেজিতে প্রশ্ন করতে পারেন।
+                                পড়াশোনা, টেক, পরামর্শ—যা চাই বলুন।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <textarea id="userInput" placeholder="এখানে আপনার প্রশ্ন লিখুন..." rows="2"></textarea>
+                    <button id="sendBtn" class="send-btn">
+                        <span class="send-icon">➤</span>
+                        <span>Send</span>
+                    </button>
+                </div>
+
+                <div class="status-text" id="statusText"></div>
+            </section>
+        </section>
+
+    </main>
+
+    <footer>
+        © ২০২৫ Ai quick help · Designed & developed by Murad Ahmmed
+    </footer>
+
+    <!-- Main JS -->
+    <script src="script.js"></script>
+</body>
+</html>
