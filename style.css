@@ -1,20 +1,29 @@
+/* ===============================
+   THEME VARIABLES
+================================ */
 :root{
-  /* Premium palette (blue → teal) */
-  --p1:#4f6cff;
-  --p2:#1fb6ff;
-  --p3:#00d3a7;
+  /* Dark Golden palette */
+  --gold-1:#6b4f00;
+  --gold-2:#d4af37;
+  --gold-3:#8a6b00;
 
-  --bg1:#eef2ff;
-  --bg2:#f8fafc;
+  --bg1:#fffaf0;
+  --bg2:#f7f2df;
 
   --card:#ffffff;
-  --text:#0f172a;
-  --muted:#64748b;
+  --text:#1f2937;
+  --muted:#6b7280;
 
   --radius:18px;
-  --shadow:0 16px 40px rgba(2,8,23,.14);
+  --shadow:0 16px 40px rgba(0,0,0,.18);
+
+  --send-inactive:#bdbdbd;
+  --send-active:#e53935; /* dark red */
 }
 
+/* ===============================
+   RESET
+================================ */
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 
@@ -23,83 +32,56 @@ body{
   font-family:"Hind Siliguri","Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(1100px 420px at top, rgba(79,108,255,.16), transparent 55%),
+    radial-gradient(1100px 420px at top, rgba(212,175,55,.18), transparent 55%),
     linear-gradient(180deg,var(--bg1),var(--bg2));
 }
 
-/* ================= HEADER (thinner) ================= */
-.header{
+/* ===============================
+   HEADER (DARK GOLDEN)
+================================ */
+header{
   width:min(1100px,94%);
   margin:10px auto 0;
 }
 
 .logo-title{
-  position:relative;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:10px;
-
-  padding:8px 12px;              /* thinner header */
+  padding:8px 12px;
   border-radius:18px;
-
-  color:#fff;
-  background:
-    radial-gradient(900px 260px at 30% 10%, rgba(255,255,255,.18), transparent 55%),
-    linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
+  color:#2b2100;
+  background:linear-gradient(135deg,var(--gold-1),var(--gold-2),var(--gold-3));
   box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.logo-title::after{
-  content:"";
-  position:absolute;
-  right:-90px;
-  top:-120px;
-  width:240px;
-  height:240px;
-  background:radial-gradient(circle, rgba(255,255,255,.18), transparent 65%);
-  transform:rotate(10deg);
-  pointer-events:none;
 }
 
 .logo-circle{
   width:30px;
   height:30px;
-  border-radius:999px;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:900;
-  font-family:"Poppins",sans-serif;
   font-size:13px;
-
-  background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.22);
-}
-
-.logo-text{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
+  background:rgba(255,255,255,.35);
 }
 
 .site-title{
-  font-family:"Poppins",sans-serif;
   font-weight:900;
-  font-size:18px;               /* smaller */
-  line-height:1.05;
-  letter-spacing:.2px;
+  font-size:18px;
+  line-height:1.1;
 }
 
 .site-tagline{
-  margin-top:2px;
-  font-size:11.5px;             /* smaller */
-  opacity:.95;
+  font-size:11.5px;
+  opacity:.9;
 }
 
-/* ================= MAIN (serial / one column) ================= */
+/* ===============================
+   MAIN LAYOUT
+================================ */
 .main-wrapper{
   width:min(1100px,94%);
   margin:16px auto 0;
@@ -108,7 +90,9 @@ body{
   gap:16px;
 }
 
-/* ================= CARDS ================= */
+/* ===============================
+   CARD
+================================ */
 .card{
   background:var(--card);
   border-radius:var(--radius);
@@ -116,7 +100,9 @@ body{
   padding:18px;
 }
 
-/* ================= PROFILE CARD ================= */
+/* ===============================
+   PROFILE
+================================ */
 .profile-header{
   display:flex;
   align-items:center;
@@ -124,195 +110,189 @@ body{
 }
 
 .profile-header img{
-  width:54px;       /* smaller profile circle */
+  width:54px;
   height:54px;
-  border-radius:999px;
+  border-radius:50%;
   object-fit:cover;
-
-  border:3px solid transparent;
-  background:
-    linear-gradient(#fff,#fff) padding-box,
-    linear-gradient(135deg,var(--p1),var(--p2),var(--p3)) border-box;
-
-  box-shadow:0 10px 22px rgba(2,8,23,.14);
 }
 
 .profile-name{
-  font-family:"Poppins",sans-serif;
   font-weight:900;
   font-size:18px;
 }
 
 .profile-role{
-  margin-top:2px;
   font-size:13px;
   color:var(--muted);
 }
 
 .profile-bio{
-  margin:12px 0 0;
+  margin-top:12px;
   font-size:14px;
   line-height:1.7;
-  color:var(--text);
 }
 
-/* Contact button - slightly smaller + premium */
+/* Contact button (DARK GOLDEN) */
 .contact-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-
+  display:inline-block;
   margin-top:14px;
-  padding:10px 14px;
+  padding:10px 16px;
   border-radius:14px;
-
+  color:#2b2100;
   text-decoration:none;
   font-weight:900;
-  font-size:14px;
-  color:#fff;
-
-  background:
-    radial-gradient(140px 40px at 25% 10%, rgba(255,255,255,.22), transparent 60%),
-    linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
-  box-shadow:0 14px 30px rgba(2,8,23,.18);
+  background:linear-gradient(135deg,var(--gold-1),var(--gold-2),var(--gold-3));
+  box-shadow:0 10px 24px rgba(0,0,0,.25);
 }
+.contact-btn:hover{ filter:brightness(1.05); }
 
-.contact-btn:hover{ opacity:.94; }
-.contact-btn:active{ transform:scale(.98); }
-
-/* ================= CHAT CARD ================= */
-.chat-header{ margin-bottom:12px; }
-
-.chat-title{
-  font-family:"Poppins",sans-serif;
-  font-weight:900;
-  font-size:18px;
-}
-
-.chat-sub{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-/* chat box */
+/* ===============================
+   CHAT BOX
+================================ */
 .chat-box{
-  background:rgba(255,255,255,.72);
-  border:1px solid rgba(15,23,42,.06);
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(0,0,0,.06);
   border-radius:18px;
   padding:16px;
-  min-height:260px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.88);
+  min-height:300px;
 }
 
-/* message rows */
+/* messages */
 .msg-row{
   width:100%;
   display:flex;
   margin:10px 0;
 }
-
-.msg-row.assistant{ justify-content:flex-start; }
 .msg-row.user{ justify-content:flex-end; }
+.msg-row.assistant{ justify-content:flex-start; }
 
-/* bubbles */
 .msg-bubble{
-  max-width:86%;
-  padding:13px 14px;
+  max-width:85%;
+  padding:12px 14px;
   border-radius:16px;
-  box-shadow:0 10px 22px rgba(2,8,23,.08);
-}
-
-.msg-row.assistant .msg-bubble{
-  background:
-    radial-gradient(260px 70px at 20% 10%, rgba(79,108,255,.14), transparent 60%),
-    linear-gradient(135deg,#eef2ff,#ffffff);
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
 
 .msg-row.user .msg-bubble{
-  background:
-    radial-gradient(260px 70px at 80% 10%, rgba(0,211,167,.14), transparent 60%),
-    linear-gradient(135deg,#e9fff9,#ffffff);
+  background:#fff4cc;
 }
 
-/* meta label */
+.msg-row.assistant .msg-bubble{
+  background:#f3f6ff;
+}
+
 .msg-meta{
   font-size:12px;
-  font-weight:900;
+  font-weight:800;
   color:var(--muted);
   margin-bottom:6px;
 }
 
-/* ================= INPUT ================= */
-.chat-input-area{
+/* ===============================
+   CHATGPT-STYLE PILL INPUT
+================================ */
+.chat-input-area.pill-input{
   margin-top:14px;
-  display:grid;
-  grid-template-columns: 54px 1fr auto;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  background:#fff;
-}
-
-.chat-input-area::before{
-  content:"+";
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  color:var(--p1);
-  background:#f1f5ff;
-  border-right:1px solid rgba(15,23,42,.06);
-}
-
-#userInput{
-  border:0;
-  outline:none;
-  padding:13px 14px;
-  font-size:14.5px;
-  resize:none;
-  background:#fff;
-  font-family:"Poppins","Hind Siliguri",system-ui;
-}
-
-.send-btn{
-  border:0;
-  background:linear-gradient(135deg,var(--p1),var(--p2),var(--p3));
-  color:#fff;
-  padding:0 16px;
-  font-size:14px;
-  font-weight:900;
   display:flex;
   align-items:center;
   gap:10px;
-  cursor:pointer;
-  white-space:nowrap;
+  padding:10px 12px;
+  border-radius:999px;
+  background:#f2f2f2;
+  border:1px solid rgba(0,0,0,.1);
+  box-shadow:0 10px 26px rgba(0,0,0,.12);
 }
-.send-btn:hover{ opacity:.94; }
-.send-icon{ font-size:18px; }
 
-/* status */
+/* plus */
+.pill-plus{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:none;
+  background:transparent;
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* textarea – no arrows */
+.pill-textarea{
+  flex:1;
+  border:none;
+  outline:none;
+  resize:none !important;
+  background:transparent;
+  font-size:18px;
+  height:28px;
+  padding:6px;
+  overflow:hidden !important;
+  scrollbar-width:none;
+  font-family:"Poppins","Hind Siliguri",sans-serif;
+}
+.pill-textarea::-webkit-resizer{ display:none; }
+.pill-textarea::-webkit-scrollbar{ display:none; }
+
+/* mic */
+.pill-mic{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:none;
+  background:#e0e0e0;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* SEND BUTTON */
+.pill-send{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:none;
+  background:var(--send-inactive);
+  color:#fff;
+  cursor:not-allowed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease, transform .1s ease;
+}
+
+.pill-send.active{
+  background:var(--send-active);
+  cursor:pointer;
+}
+
+.pill-send.active:hover{
+  filter:brightness(1.05);
+}
+
+.pill-send.active:active{
+  transform:scale(.95);
+}
+
+/* ===============================
+   STATUS & FOOTER
+================================ */
 .status-text{
   margin-top:10px;
   font-size:13px;
   color:#b91c1c;
 }
 
-/* footer */
-.footer{
+footer{
   width:min(1100px,94%);
-  margin:16px auto 28px;
+  margin:18px auto 26px;
   text-align:center;
-  color:var(--muted);
   font-size:12.5px;
+  color:var(--muted);
 }
 
-/* ================= MOBILE tweaks ================= */
-@media (max-width:480px){
-  .logo-title{ padding:7px 10px; border-radius:16px; }
-  .site-title{ font-size:17px; }
-  .site-tagline{ font-size:11px; }
-  .card{ padding:16px; }
-  .profile-header img{ width:50px; height:50px; }
-  .contact-btn{ padding:10px 12px; font-size:13.5px; }
+/* ===============================
+   MOBILE
+================================ */
+@media(max-width:480px){
+  .pill-textarea{ font-size:16px; }
+  .pill-send{ width:48px; height:48px; }
 }
