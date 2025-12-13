@@ -1,5 +1,6 @@
-// script.js (works with your current HTML)
-
+// ===============================
+// ELEMENTS
+// ===============================
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
@@ -8,6 +9,23 @@ const statusText = document.getElementById("statusText");
 // backend endpoint
 const API_URL = "http://localhost:3000/api/chat";
 
+// ===============================
+// SEND BUTTON ACTIVE / INACTIVE
+// ===============================
+function toggleSendButton() {
+  const hasText = (userInput.value || "").trim().length > 0;
+  if (hasText) {
+    sendBtn.classList.add("active");
+    sendBtn.disabled = false;
+  } else {
+    sendBtn.classList.remove("active");
+    sendBtn.disabled = true;
+  }
+}
+
+// ===============================
+// ADD CHAT BUBBLE
+// ===============================
 function addBubble(text, who = "user") {
   const row = document.createElement("div");
   row.className = `msg-row ${who === "user" ? "user" : "assistant"}`;
@@ -32,15 +50,22 @@ function addBubble(text, who = "user") {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// ===============================
+// SEND MESSAGE
+// ===============================
 async function sendMessage() {
   const text = (userInput.value || "").trim();
   if (!text) return;
 
+  // user bubble
   addBubble(text, "user");
-  userInput.value = "";
-  userInput.focus();
 
-  statusText.textContent = "AI ভাবছে...";
+  // clear input & hide keyboard
+  userInput.value = "";
+  userInput.blur(); // ✅ hide mobile keyboard
+  toggleSendButton();
+
+  statusText.textContent = "AI is thinking...";
 
   try {
     const res = await fetch(API_URL, {
@@ -55,24 +80,49 @@ async function sendMessage() {
     }
 
     const data = await res.json();
-    const reply = data?.reply || "দুঃখিত, কোনো উত্তর পাওয়া যায়নি।";
+    const reply = data?.reply || "Sorry, no reply found.";
     addBubble(reply, "assistant");
 
     statusText.textContent = "Ready.";
   } catch (e) {
     console.error(e);
     statusText.textContent = "Connection error.";
-    addBubble("দুঃখিত—সার্ভারে কানেক্ট হচ্ছে না। (server চালু আছে তো?)", "assistant");
+    addBubble(
+      "Sorry—cannot connect to the server. (Is the server running?)",
+      "assistant"
+    );
   }
 }
 
-// click
+// ===============================
+// EVENTS
+// ===============================
+
+// click send
 sendBtn.addEventListener("click", sendMessage);
 
-// Enter = Send (Shift+Enter = new line)
+// Enter = Send | Shift+Enter = new line
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
     sendMessage();
   }
 });
+
+// typing detect (activate send button)
+userInput.addEventListener("input", toggleSendButton);
+
+// tap input => show keyboard again
+userInput.addEventListener("click", () => {
+  userInput.focus();
+});
+
+// if send clicked while empty => focus input
+sendBtn.addEventListener("click", () => {
+  if (!userInput.value.trim()) {
+    userInput.focus();
+  }
+});
+
+// initial state
+toggleSendButton();
