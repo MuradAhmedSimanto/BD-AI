@@ -265,6 +265,27 @@ body{
 #chatBox::-webkit-scrollbar{ width:6px; }
 .chat-box::-webkit-scrollbar-thumb,
 #chatBox::-webkit-scrollbar-thumb{ background:#cfcfcf; border-radius:10px; }
+/* ✅ Make the hero sentence sit in the CENTER of the screen */
+.hero{
+  margin: 0 !important;
+  padding: 0 16px !important;
+
+  /* middle of the page */
+  min-height: calc(100dvh - 44px - 110px) !important; /* 44px header + ~input space */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  text-align: center !important;
+}
+
+.hero h1{
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 800px !important;
+  text-align: center !important;
+}
+
 
 
 
