@@ -1,17 +1,11 @@
-// ===============================
-// ELEMENTS
-// ===============================
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const statusText = document.getElementById("statusText");
 
-// backend endpoint
 const API_URL = "http://localhost:3000/api/chat";
 
-// ===============================
-// SEND BUTTON ACTIVE / INACTIVE
-// ===============================
+/* Send button active/inactive */
 function toggleSendButton() {
   const hasText = (userInput.value || "").trim().length > 0;
   if (hasText) {
@@ -23,9 +17,7 @@ function toggleSendButton() {
   }
 }
 
-// ===============================
-// ADD CHAT BUBBLE
-// ===============================
+/* bubbles */
 function addBubble(text, who = "user") {
   const row = document.createElement("div");
   row.className = `msg-row ${who === "user" ? "user" : "assistant"}`;
@@ -50,19 +42,14 @@ function addBubble(text, who = "user") {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// ===============================
-// SEND MESSAGE
-// ===============================
 async function sendMessage() {
   const text = (userInput.value || "").trim();
   if (!text) return;
 
-  // user bubble
   addBubble(text, "user");
 
-  // clear input & hide keyboard
   userInput.value = "";
-  userInput.blur(); // ✅ hide mobile keyboard
+  userInput.blur();          // ✅ hide keyboard after send
   toggleSendButton();
 
   statusText.textContent = "AI is thinking...";
@@ -87,21 +74,13 @@ async function sendMessage() {
   } catch (e) {
     console.error(e);
     statusText.textContent = "Connection error.";
-    addBubble(
-      "Sorry—cannot connect to the server. (Is the server running?)",
-      "assistant"
-    );
+    addBubble("Sorry—cannot connect to the server. (Is the server running?)", "assistant");
   }
 }
 
-// ===============================
-// EVENTS
-// ===============================
-
-// click send
+/* events */
 sendBtn.addEventListener("click", sendMessage);
 
-// Enter = Send | Shift+Enter = new line
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -109,20 +88,12 @@ userInput.addEventListener("keydown", (e) => {
   }
 });
 
-// typing detect (activate send button)
 userInput.addEventListener("input", toggleSendButton);
 
-// tap input => show keyboard again
+/* tap input => show keyboard again */
 userInput.addEventListener("click", () => {
   userInput.focus();
 });
 
-// if send clicked while empty => focus input
-sendBtn.addEventListener("click", () => {
-  if (!userInput.value.trim()) {
-    userInput.focus();
-  }
-});
-
-// initial state
+/* initial */
 toggleSendButton();
