@@ -1,11 +1,18 @@
+ // ===============================
+// ELEMENTS
+// ===============================
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const statusText = document.getElementById("statusText");
+const heroArea = document.getElementById("heroArea");
 
+// backend endpoint
 const API_URL = "http://localhost:3000/api/chat";
 
-/* Send button active/inactive */
+// ===============================
+// SEND BUTTON ACTIVE / INACTIVE
+// ===============================
 function toggleSendButton() {
   const hasText = (userInput.value || "").trim().length > 0;
   if (hasText) {
@@ -17,7 +24,9 @@ function toggleSendButton() {
   }
 }
 
-/* bubbles */
+// ===============================
+// ADD CHAT BUBBLE
+// ===============================
 function addBubble(text, who = "user") {
   const row = document.createElement("div");
   row.className = `msg-row ${who === "user" ? "user" : "assistant"}`;
@@ -42,14 +51,22 @@ function addBubble(text, who = "user") {
   chatBox.scrollTop = chatBox.scrollHeight;
 }
 
+// ===============================
+// SEND MESSAGE
+// ===============================
 async function sendMessage() {
   const text = (userInput.value || "").trim();
   if (!text) return;
 
+  // Hide hero text after first message
+  if (heroArea) heroArea.style.display = "none";
+
+  // User bubble
   addBubble(text, "user");
 
+  // Clear input & hide keyboard
   userInput.value = "";
-  userInput.blur();          // ✅ hide keyboard after send
+  userInput.blur(); // mobile keyboard hide
   toggleSendButton();
 
   statusText.textContent = "AI is thinking...";
@@ -70,17 +87,25 @@ async function sendMessage() {
     const reply = data?.reply || "Sorry, no reply found.";
     addBubble(reply, "assistant");
 
-    statusText.textContent = "Ready.";
+    statusText.textContent = "";
   } catch (e) {
     console.error(e);
     statusText.textContent = "Connection error.";
-    addBubble("Sorry—cannot connect to the server. (Is the server running?)", "assistant");
+    addBubble(
+      "Sorry—cannot connect to the server. (Is the server running?)",
+      "assistant"
+    );
   }
 }
 
-/* events */
+// ===============================
+// EVENTS
+// ===============================
+
+// Click send
 sendBtn.addEventListener("click", sendMessage);
 
+// Enter = Send | Shift+Enter = new line
 userInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
@@ -88,12 +113,13 @@ userInput.addEventListener("keydown", (e) => {
   }
 });
 
+// Typing detect
 userInput.addEventListener("input", toggleSendButton);
 
-/* tap input => show keyboard again */
+// Tap input => keyboard comes back
 userInput.addEventListener("click", () => {
   userInput.focus();
 });
 
-/* initial */
+// Initial state
 toggleSendButton();
