@@ -10,44 +10,44 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+ </head>
 
 <body>
-  <!-- TOP HEADER (full width) -->
+  <!-- TOP HEADER -->
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="topbar-left">
-        <img class="avatar"
-          src="https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE-2rhMFAiSgDs19BGOvoLhiXdOx74Kdq2Jd07Hvgp2rXdd_IfXff59dB3-B42b03NlObUV07Z1ZHgnO4q2VqDB&_nc_ohc=iFjpX4hY_RUQ7kNvwGPlMVQ&_nc_oc=AdmplQsInHOYbwiTrrvm0WgPXX_C_7diLYBikq3sGiORo2WsUKu3-_2UDjTZteCN-Ba8pywMmD7xD2MZMjnYo41a&_nc_zt=24&_nc_ht=scontent.fdac2-2.fna&_nc_gid=m_x0HIIyGphM6_ffjvvbbw&oh=00_AfmCIKn810tz32g8CMgHb23oqzaXWMvhwldiRLm7NmR6eQ&oe=69420933"
-          alt="Murad Ahmed" />
-
-        <div class="name-stack">
-          <div class="top-name">Murad Ahmed (Founder)</div>
-          <!-- ONLY this blue text is the FB link -->
-          <a class="top-link" href="https://www.facebook.com/" target="_blank" rel="noopener">
-            Contact on Facebook
-          </a>
-        </div>
+      <div class="topbar-center">
+        <div class="brand">Ai quick help</div>
       </div>
 
-      <div class="topbar-right">
-        <div class="brand">Ai quick help</div>
+      <div class="topbar-actions">
+        <button id="signInBtn" class="sign-in-btn" type="button">Sign in</button>
       </div>
     </div>
   </header>
 
+  <!-- PROFILE (LEFT) -->
+  <div class="topbar-left">
+    <img class="avatar"
+      src="https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE-2rhMFAiSgDs19BGOvoLhiXdOx74Kdq2Jd07Hvgp2rXdd_IfXff59dB3-B42b03NlObUV07Z1ZHgnO4q2VqDB&_nc_ohc=iFjpX4hY_RUQ7kNvwGPlMVQ&_nc_oc=AdmplQsInHOYbwiTrrvm0WgPXX_C_7diLYBikq3sGiORo2WsUKu3-_2UDjTZteCN-Ba8pywMmD7xD2MZMjnYo41a&_nc_zt=24&_nc_ht=scontent.fdac2-2.fna&_nc_gid=m_x0HIIyGphM6_ffjvvbbw&oh=00_AfmCIKn810tz32g8CMgHb23oqzaXWMvhwldiRLm7NmR6eQ&oe=69420933"
+      alt="Murad Ahmed" />
+
+    <div class="name-stack">
+      <div class="top-name" id="headerName">Murad Ahmed (Founder)</div>
+      <a class="top-link" href="https://www.facebook.com/" target="_blank" rel="noopener">
+        Contact on Facebook
+      </a>
+    </div>
+  </div>
+
   <!-- APP AREA -->
   <main class="app">
-    <!-- Center content like ChatGPT -->
-   <section class="hero" id="heroArea">
-  <h1>I try to help people in simple and easy language.</h1>
-</section>
+    <section class="hero" id="heroArea">
+      <h1>I try to help people in simple and easy language.</h1>
+    </section>
 
-    <!-- Chat messages -->
     <section id="chatBox" class="chat-box"></section>
 
-    <!-- Bottom input (ChatGPT style) -->
     <section class="composer-wrap" id="composerWrap">
       <div class="composer pill-input">
         <button class="pill-plus" type="button" aria-label="Add">+</button>
@@ -75,6 +75,87 @@
     </section>
   </main>
 
+  <!-- AUTH MODAL (TikTok-style) -->
+  <div id="authModal" class="modal hidden">
+    <div class="auth-sheet">
+      <div class="auth-top">
+        <div class="auth-title">Sign in</div>
+        <button id="closeModal" class="auth-close" type="button">✕</button>
+      </div>
+
+      <!-- LOGIN LIST -->
+      <div class="login-list" id="loginList">
+        <button class="login-item" id="openEmailPhone" type="button">
+          <span class="login-ico user">👤</span>
+          <span class="login-text">Use phone / email</span>
+        </button>
+
+        <button class="login-item fb" id="facebookLoginBtn" type="button">
+          <span class="login-ico fb">f</span>
+          <span class="login-text">Continue with Facebook</span>
+        </button>
+
+        <button class="login-item google" id="googleLoginBtn" type="button">
+          <span class="login-ico g">G</span>
+          <span class="login-text">Continue with Google</span>
+        </button>
+      </div>
+
+      <!-- CHOOSER -->
+      <div id="screen-chooser" class="auth-screen hidden">
+        <div class="auth-subtitle">Choose login method</div>
+        <button id="goEmail" class="auth-btn" type="button">Email & Password</button>
+        <button id="goPhone" class="auth-btn ghost" type="button">Phone (OTP)</button>
+        <button class="auth-btn back" data-back type="button">Back</button>
+      </div>
+
+      <!-- EMAIL -->
+      <div id="screen-email" class="auth-screen hidden">
+        <div class="auth-subtitle">Email Login</div>
+        <input id="emailField" class="auth-inp" placeholder="Email" />
+        <input id="passField" class="auth-inp" type="password" placeholder="Password" />
+        <button id="emailSignIn" class="auth-btn" type="button">Sign in</button>
+        <button id="emailSignUp" class="auth-btn ghost" type="button">Create account</button>
+        <button class="auth-btn back" data-back type="button">Back</button>
+      </div>
+
+      <!-- PHONE -->
+      <div id="screen-phone" class="auth-screen hidden">
+        <div class="auth-subtitle">Phone Login (OTP)</div>
+        <input id="phoneField" class="auth-inp" placeholder="Phone e.g. +8801XXXXXXXXX" />
+        <div id="recaptcha-container"></div>
+        <button id="sendOtp" class="auth-btn" type="button">Send OTP</button>
+
+        <input id="otpField" class="auth-inp" placeholder="OTP code" />
+        <button id="verifyOtp" class="auth-btn ghost" type="button">Verify</button>
+
+        <button class="auth-btn back" data-back type="button">Back</button>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="screen-profile" class="auth-screen hidden">
+        <div class="auth-subtitle">Complete Profile</div>
+        <input id="nameField" class="auth-inp" placeholder="Your name" />
+        <input id="photoField" class="auth-inp" placeholder="Photo URL (optional)" />
+        <button id="saveProfile" class="auth-btn" type="button">Save</button>
+        <button id="logoutBtn" class="auth-btn ghost" type="button">Logout</button>
+        <button class="auth-btn back" data-back type="button">Back</button>
+      </div>
+
+      <div id="authMsg" class="auth-msg"></div>
+
+      <div class="auth-foot">
+        <div class="small-note">Tip: Email/Google/Phone enable না করলে login কাজ করবে না.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase compat SDK (Plain HTML এর জন্য সঠিক) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+  <!-- Your App JS -->
   <script src="script.js"></script>
 </body>
 </html>
