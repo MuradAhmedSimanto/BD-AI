@@ -26,7 +26,7 @@ const statusText = document.getElementById("statusText");
 const heroArea = document.getElementById("heroArea");
 
 // backend endpoint
-const API_URL = "http://localhost:3000/api/chat";
+const API_URL = "https://ai-chat-backend-sandy.vercel.app/api/chat";
 
 function toggleSendButton() {
   const hasText = (userInput.value || "").trim().length > 0;
