@@ -1,23 +1,5 @@
 // ===============================
-// FIREBASE INIT (COMPAT) ✅
-// ===============================
-const firebaseConfig = {
-  apiKey: "AIzaSyCpo6OlfT-8YyncA_xLiWANNBtwlqet3y4",
-  authDomain: "ai-quick-help.firebaseapp.com",
-  projectId: "ai-quick-help",
-  storageBucket: "ai-quick-help.firebasestorage.app",
-  messagingSenderId: "401118176448",
-  appId: "1:401118176448:web:5d70d48c5f7beccc48f925",
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-
-// ===============================
-// CHAT (UNCHANGED)
+// CHAT (UNCHANGED ✅)
 // ===============================
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
@@ -49,7 +31,7 @@ function addBubble(text, who = "user") {
   if (who !== "user") {
     const meta = document.createElement("div");
     meta.className = "msg-meta";
-    meta.textContent = "AI Assistant";
+    meta.textContent = "AI Assistant"; // (unchanged as you had)
     bubble.appendChild(meta);
   }
 
@@ -90,7 +72,10 @@ async function sendMessage() {
   } catch (e) {
     console.error(e);
     statusText.textContent = "Connection error.";
-    addBubble("Sorry—cannot connect to the server. (Is the server running?)", "assistant");
+    addBubble(
+      "Sorry—cannot connect to the server. (Is the server running?)",
+      "assistant"
+    );
   }
 }
 
@@ -106,232 +91,173 @@ userInput.addEventListener("input", toggleSendButton);
 userInput.addEventListener("click", () => userInput.focus());
 toggleSendButton();
 
+// ===============================
+// PROFILE (NO SIGN-IN ✅) - localStorage based
+// ===============================
 
-// ===============================
-// AUTH UI + REAL LOGIN
-// ===============================
-const signInBtn = document.getElementById("signInBtn");
-const authModal = document.getElementById("authModal");
-const closeModal = document.getElementById("closeModal");
+// HTML elements (from your updated index.html)
+const profileBtn = document.getElementById("profileBtn");
+const profileModal = document.getElementById("profileModal");
+const closeProfile = document.getElementById("closeProfile");
+
 const headerName = document.getElementById("headerName");
-const authMsg = document.getElementById("authMsg");
+const headerAvatar = document.getElementById("headerAvatar");
+const headerSub = document.getElementById("headerSub");
 
-const loginList = document.getElementById("loginList");
-const screenChooser = document.getElementById("screen-chooser");
-const screenEmail = document.getElementById("screen-email");
-const screenPhone = document.getElementById("screen-phone");
-const screenProfile = document.getElementById("screen-profile");
+const profileNameInput = document.getElementById("profileName");
+const profilePhotoInput = document.getElementById("profilePhoto"); // file input
+const saveProfileBtn = document.getElementById("saveProfile");
+const removeProfileBtn = document.getElementById("removeProfile");
 
-// list btn
-const openEmailPhone = document.getElementById("openEmailPhone");
-const facebookLoginBtn = document.getElementById("facebookLoginBtn");
-const googleLoginBtn = document.getElementById("googleLoginBtn");
+// Defaults (your original)
+const DEFAULT_PROFILE = {
+  name: "quick",
+  role: "AI",
+  sub: "Murad Ahmed Simanto(Founder)",
+  avatar:
+    "https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg",
+};
 
-// chooser
-const goEmail = document.getElementById("goEmail");
-const goPhone = document.getElementById("goPhone");
+// Storage keys
+const LS_KEY = "quickai_profile_v1";
 
-// email
-const emailField = document.getElementById("emailField");
-const passField = document.getElementById("passField");
-const emailSignIn = document.getElementById("emailSignIn");
-const emailSignUp = document.getElementById("emailSignUp");
-
-// phone
-const phoneField = document.getElementById("phoneField");
-const otpField = document.getElementById("otpField");
-const sendOtp = document.getElementById("sendOtp");
-const verifyOtp = document.getElementById("verifyOtp");
-
-// profile
-const nameField = document.getElementById("nameField");
-const photoField = document.getElementById("photoField");
-const saveProfile = document.getElementById("saveProfile");
-const logoutBtn = document.getElementById("logoutBtn");
-
-const DEFAULT_NAME = "Murad Ahmed (Founder)";
-
-function setMsg(t){ authMsg.textContent = t || ""; }
-
-function openAuth(){ authModal.classList.remove("hidden"); }
-function closeAuth(){ authModal.classList.add("hidden"); setMsg(""); showList(); }
-
-function hideAll(){
-  loginList.classList.add("hidden");
-  screenChooser.classList.add("hidden");
-  screenEmail.classList.add("hidden");
-  screenPhone.classList.add("hidden");
-  screenProfile.classList.add("hidden");
+// Helpers
+function openProfileModal() {
+  profileModal.classList.remove("hidden");
 }
-function showList(){ hideAll(); loginList.classList.remove("hidden"); }
-function showScreen(el){ hideAll(); el.classList.remove("hidden"); }
+function closeProfileModal() {
+  profileModal.classList.add("hidden");
+}
 
-// modal close handlers
-closeModal.addEventListener("click", closeAuth);
-authModal.addEventListener("click", (e) => { if (e.target === authModal) closeAuth(); });
+function formatHeaderName(name, role) {
+  const n = (name || "").trim();
+  const r = (role || "").trim();
+  if (!n) return `${DEFAULT_PROFILE.name} (${DEFAULT_PROFILE.role})`;
+  if (!r) return n;
+  return `${n} (${r})`;
+}
 
-// back buttons
-authModal.querySelectorAll("[data-back]").forEach(btn => {
-  btn.addEventListener("click", () => { setMsg(""); showList(); });
-});
+function loadSavedProfile() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    if (!obj || typeof obj !== "object") return null;
+    return obj;
+  } catch (_) {
+    return null;
+  }
+}
 
-// open modal
-signInBtn.addEventListener("click", async () => {
-  if (auth.currentUser) {
-    await loadProfileToUI(auth.currentUser);
-    showScreen(screenProfile);
-    openAuth();
+function saveProfileToStorage(profile) {
+  localStorage.setItem(LS_KEY, JSON.stringify(profile));
+}
+
+function clearProfileStorage() {
+  localStorage.removeItem(LS_KEY);
+}
+
+function applyProfileToUI(profile) {
+  const p = profile || null;
+
+  // Default mode
+  if (!p) {
+    headerName.textContent = formatHeaderName(DEFAULT_PROFILE.name, DEFAULT_PROFILE.role);
+    if (headerSub) headerSub.textContent = DEFAULT_PROFILE.sub;
+    if (headerAvatar) headerAvatar.src = DEFAULT_PROFILE.avatar;
     return;
   }
-  showList();
-  openAuth();
-});
 
-// list -> chooser
-openEmailPhone.addEventListener("click", () => showScreen(screenChooser));
-goEmail.addEventListener("click", () => showScreen(screenEmail));
-goPhone.addEventListener("click", () => showScreen(screenPhone));
+  // User mode
+  const userName = (p.name || "").trim() || "User";
+  const avatar = p.avatar || DEFAULT_PROFILE.avatar;
 
-// Google login
-googleLoginBtn.addEventListener("click", async () => {
-  try{
-    setMsg("Opening Google...");
-    const provider = new firebase.auth.GoogleAuthProvider();
-    await auth.signInWithPopup(provider);
-    setMsg("");
-    closeAuth();
-  }catch(e){
-    setMsg(e.message);
-  }
-});
-
-// Facebook login (এখন provider enable না করলে error হবে)
-facebookLoginBtn.addEventListener("click", async () => {
-  try{
-    setMsg("Opening Facebook...");
-    const provider = new firebase.auth.FacebookAuthProvider();
-    await auth.signInWithPopup(provider);
-    setMsg("");
-    closeAuth();
-  }catch(e){
-    setMsg(e.message);
-  }
-});
-
-// Email sign in
-emailSignIn.addEventListener("click", async () => {
-  try{
-    setMsg("Signing in...");
-    await auth.signInWithEmailAndPassword(emailField.value.trim(), passField.value);
-    setMsg("");
-    closeAuth();
-  }catch(e){ setMsg(e.message); }
-});
-
-// Email sign up
-emailSignUp.addEventListener("click", async () => {
-  try{
-    setMsg("Creating account...");
-    await auth.createUserWithEmailAndPassword(emailField.value.trim(), passField.value);
-    setMsg("");
-    await loadProfileToUI(auth.currentUser);
-    showScreen(screenProfile);
-  }catch(e){ setMsg(e.message); }
-});
-
-// Phone OTP
-let confirmationResult = null;
-let recaptchaVerifier = null;
-
-function ensureRecaptcha(){
-  if (recaptchaVerifier) return;
-  recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", { size: "normal" });
-  recaptchaVerifier.render();
+  headerName.textContent = formatHeaderName(userName, "User");
+  if (headerSub) headerSub.textContent = "Murad Ahmed Simanto";
+  if (headerAvatar) headerAvatar.src = avatar;
 }
 
-sendOtp.addEventListener("click", async () => {
-  try{
-    ensureRecaptcha();
-    setMsg("Sending OTP...");
-    confirmationResult = await auth.signInWithPhoneNumber(phoneField.value.trim(), recaptchaVerifier);
-    setMsg("OTP sent. Enter code.");
-  }catch(e){ setMsg(e.message); }
-});
-
-verifyOtp.addEventListener("click", async () => {
-  try{
-    if (!confirmationResult) return setMsg("Send OTP first.");
-    setMsg("Verifying...");
-    await confirmationResult.confirm(otpField.value.trim());
-    setMsg("");
-    closeAuth();
-  }catch(e){ setMsg(e.message); }
-});
-
-// Firestore profile
-async function loadProfileToUI(user){
-  if (!user) return;
-  const ref = db.collection("users").doc(user.uid);
-  const snap = await ref.get();
-  const data = snap.exists ? snap.data() : {};
-  nameField.value = data?.displayName || user.displayName || "";
-  photoField.value = data?.photoURL || user.photoURL || "";
+function hydrateProfileForm(profile) {
+  if (!profile) {
+    profileNameInput.value = "";
+    // file input cannot be set programmatically for security
+    if (profilePhotoInput) profilePhotoInput.value = "";
+    return;
+  }
+  profileNameInput.value = profile.name || "";
+  if (profilePhotoInput) profilePhotoInput.value = "";
 }
 
-async function saveProfileToDB(user){
-  const displayName = (nameField.value || "").trim();
-  const photoURL = (photoField.value || "").trim();
-
-  await db.collection("users").doc(user.uid).set({
-    displayName: displayName || user.displayName || "User",
-    photoURL: photoURL || user.photoURL || "",
-    updatedAt: Date.now()
-  }, { merge:true });
-
-  await user.updateProfile({
-    displayName: displayName || user.displayName || "",
-    photoURL: photoURL || user.photoURL || ""
+// Convert chosen image file to base64 dataURL (so it persists in localStorage)
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("Failed to read image"));
+    reader.readAsDataURL(file);
   });
 }
 
-saveProfile.addEventListener("click", async () => {
-  try{
-    const user = auth.currentUser;
-    if (!user) return setMsg("Not logged in.");
-    setMsg("Saving...");
-    await saveProfileToDB(user);
-    setMsg("Saved!");
-    closeAuth();
-  }catch(e){ setMsg(e.message); }
+// Initial apply on page load
+(function initProfile() {
+  const saved = loadSavedProfile();
+  applyProfileToUI(saved);
+})();
+
+// Open modal
+profileBtn.addEventListener("click", () => {
+  const saved = loadSavedProfile();
+  hydrateProfileForm(saved);
+  openProfileModal();
 });
 
-logoutBtn.addEventListener("click", async () => {
-  await auth.signOut();
-  closeAuth();
+// Close modal
+closeProfile.addEventListener("click", closeProfileModal);
+profileModal.addEventListener("click", (e) => {
+  if (e.target === profileModal) closeProfileModal();
 });
 
-// header name update
-async function applyHeader(user){
-  if (!user){
-    headerName.textContent = DEFAULT_NAME;
-    signInBtn.textContent = "Sign in";
-    return;
+// Save profile
+saveProfileBtn.addEventListener("click", async () => {
+  const name = (profileNameInput.value || "").trim();
+
+  // Keep previous avatar if user doesn't choose a new one
+  const existing = loadSavedProfile();
+  let avatar = existing?.avatar || null;
+
+  const file = profilePhotoInput?.files?.[0] || null;
+  if (file) {
+    // Optional: basic size guard (so localStorage doesn’t explode)
+    // 2MB limit
+    if (file.size > 2 * 1024 * 1024) {
+      alert("ছবিটি খুব বড় (Max 2MB). ছোট ছবি দিন।");
+      return;
+    }
+    try {
+      const dataURL = await fileToDataURL(file);
+      if (dataURL) avatar = dataURL;
+    } catch (e) {
+      console.error(e);
+      alert("ছবি আপলোড করা যায়নি। আবার চেষ্টা করুন।");
+      return;
+    }
   }
 
-  let name = user.displayName || "User";
-  try{
-    const snap = await db.collection("users").doc(user.uid).get();
-    if (snap.exists && (snap.data()?.displayName || "").trim()) {
-      name = snap.data().displayName.trim();
-    }
-  }catch(_) {}
+  const profile = {
+    name: name || "User",
+    avatar: avatar || DEFAULT_PROFILE.avatar,
+    updatedAt: Date.now(),
+  };
 
-  headerName.textContent = name;
-  signInBtn.textContent = "Profile";
-}
+  saveProfileToStorage(profile);
+  applyProfileToUI(profile);
+  closeProfileModal();
+});
 
-// auth state
-auth.onAuthStateChanged(async (user) => {
-  await applyHeader(user);
-  if (user) await loadProfileToUI(user);
+// Remove profile (back to default Murad Ahmed)
+removeProfileBtn.addEventListener("click", () => {
+  clearProfileStorage();
+  applyProfileToUI(null);
+  closeProfileModal();
 });
