@@ -111,8 +111,8 @@ const removeProfileBtn = document.getElementById("removeProfile");
 
 // Defaults (your original)
 const DEFAULT_PROFILE = {
-  name: "Murad Ahmed",
-  role: "Founder",
+  name: "Quick AI",
+  
   sub: "Murad Ahmed Simanto",
   avatar:
     "https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg",
@@ -261,3 +261,4 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
