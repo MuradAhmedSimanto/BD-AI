@@ -56,7 +56,7 @@ async function sendMessage() {
   userInput.blur();
   toggleSendButton();
 
-  statusText.textContent = "AI is thinking...";
+  statusText.textContent = "thingking Ai...";
 
   try {
     const res = await fetch(API_URL, {
@@ -261,6 +261,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
