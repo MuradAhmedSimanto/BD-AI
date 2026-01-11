@@ -111,7 +111,7 @@ const removeProfileBtn = document.getElementById("removeProfile");
 
 // Defaults (your original)
 const DEFAULT_PROFILE = {
-  name: "Quick AI",
+  name: "Everest",
   
   sub: "Murad Ahmed Simanto(Founder)",
   avatar:
@@ -119,7 +119,7 @@ const DEFAULT_PROFILE = {
 };
 
 // Storage keys
-const LS_KEY = "quickai_profile_v1";
+const LS_KEY = "Everest_profile_v1";
 
 // Helpers
 function openProfileModal() {
@@ -261,6 +261,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
