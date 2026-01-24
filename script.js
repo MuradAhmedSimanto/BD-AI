@@ -1,7 +1,3 @@
-localStorage.clear();
-location.reload();
-
-
 // ===============================
 // CHAT (UNCHANGED ✅)
 // ===============================
@@ -265,6 +261,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
