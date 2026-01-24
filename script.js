@@ -115,7 +115,7 @@ const DEFAULT_PROFILE = {
   
   sub: "Murad Ahmed Simanto(Founder)",
   avatar:
-    "https://scontent.fdac2-2.fna.fbcdn.net/v/t39.30808-1/559382381_122093752581072337_7680749213866585756_n.jpg",
+    "04f699c3-4135-464b-ae60-4fdd065b9109.jpg",
 };
 
 // Storage keys
@@ -261,6 +261,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
