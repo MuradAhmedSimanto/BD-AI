@@ -67,8 +67,14 @@ async function sendMessage() {
 
     if (!res.ok) throw new Error("Server error");
     const data = await res.json();
-    addBubble(data?.reply || "Sorry, no reply found.", "assistant");
-    statusText.textContent = "";
+
+    
+addBubble(
+  data.reply || data.message || data.response || "Sorry, no reply found.",
+  "assistant"
+);
+
+    
   } catch (e) {
     console.error(e);
     statusText.textContent = "Connection error.";
@@ -261,6 +267,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
