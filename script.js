@@ -68,11 +68,9 @@ async function sendMessage() {
     if (!res.ok) throw new Error("Server error");
     const data = await res.json();
 
-    
-addBubble(
-  data.reply || data.message || data.response || "Sorry, no reply found.",
-  "assistant"
-);
+
+    addBubble(data?.reply || "Sorry, no reply found.", "assistant");
+    statusText.textContent = "";
 
     
   } catch (e) {
@@ -267,8 +265,6 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
-
-
 
 
 
