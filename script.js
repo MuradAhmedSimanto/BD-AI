@@ -8,7 +8,7 @@ const statusText = document.getElementById("statusText");
 const heroArea = document.getElementById("heroArea");
 
 // backend endpoint
-const API_URL = "https://ai-chat-backend-sandy.vercel.app/api/chat";
+const API_URL = "https://ai-chat-backend-3y8q.vercel.app/api/chat";
 
 function toggleSendButton() {
   const hasText = (userInput.value || "").trim().length > 0;
@@ -265,6 +265,7 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
+
 
 
 
