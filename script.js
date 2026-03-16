@@ -77,9 +77,13 @@ async function sendMessage() {
     console.error(e);
     statusText.textContent = "Connection error.";
     addBubble(
-      "Sorry—cannot to the server. (Is the server running?)",
-      "assistant"
-    );
+    `দুঃখিত! আমাদের প্ল্যাটফর্মটি বর্তমানে উন্নয়নাধীন অবস্থায় রয়েছে, তাই এই মুহূর্তে কোনো সাহায্য প্রদান করা সম্ভব হচ্ছে না।
+
+    প্ল্যাটফর্মটিকে আরও উন্নত ও কার্যকর করতে আমরা কাজ করছি। ধৈর্যের সাথে আমাদের পাশে থাকার জন্য আন্তরিক ধন্যবাদ।
+    
+    অনুগ্রহ করে কিছুদিন পরে আবার চেষ্টা করুন।`,
+"assistant"
+);
   }
 }
 
