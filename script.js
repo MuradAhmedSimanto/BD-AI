@@ -8,7 +8,7 @@ const statusText = document.getElementById("statusText");
 const heroArea = document.getElementById("heroArea");
 
 // backend endpoint
-const API_URL = "https://ai-chat-backend-3y8q.vercel.app/api/chat";
+const API_URL = "https://ai-chat-backend-wi9w.vercel.app/api/chat";
 
 function toggleSendButton() {
   const hasText = (userInput.value || "").trim().length > 0;
@@ -77,10 +77,7 @@ async function sendMessage() {
     console.error(e);
     statusText.textContent = "Connection error.";
     addBubble(
-      "দুঃখিত!
-এই মুহূর্তে আমাদের ওয়েবসাইট থেকে কোনো সেবা প্রদান করা সম্ভব হচ্ছে না।
-ওয়েবসাইটটি বর্তমানে উন্নয়নাধীন অবস্থায় রয়েছে এবং আমরা দ্রুতই সম্পূর্ণ সেবা চালু করার জন্য কাজ করছি।
-আপনার ধৈর্য ও সহযোগিতার জন্য ধন্যবাদ। অনুগ্রহ করে কিছুদিন পর আবার চেষ্টা করুন।",
+      "Sorry—cannot connect to the server. (Is the server running?)",
       "assistant"
     );
   }
