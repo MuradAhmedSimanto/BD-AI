@@ -77,7 +77,7 @@ async function sendMessage() {
     console.error(e);
     statusText.textContent = "Connection error.";
     addBubble(
-      "Sorry—cannot connect to the server. (Is the server running?)",
+      "Sorry—cannot to the server. (Is the server running?)",
       "assistant"
     );
   }
@@ -265,7 +265,6 @@ removeProfileBtn.addEventListener("click", () => {
   applyProfileToUI(null);
   closeProfileModal();
 });
-
 
 
 
